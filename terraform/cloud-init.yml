@@ -1,0 +1,36 @@
+#cloud-config
+timezone: Asia/Tokyo
+locale: en_US.UTF-8
+
+users:
+  - name: wireguard
+    uid: 2000
+
+write_files:
+  - path: /etc/systemd/system/wireguard.service
+    permissions: 0644
+    owner: root
+    content: |
+      [Unit]
+      Description=Start a wireguard server container
+
+      [Service]
+      ExecStart=/usr/bin/docker run --name=my-wireguard \
+                                    --cap-add=NET_ADMIN \
+                                    --cap-add=SYS_MODULE \
+                                    -e PUID=2000 \
+                                    -e TZ=Asia/Tokyo \
+                                    -e SERVERPORT=51820 \
+                                    -e PEERS=1 \
+                                    -p 51820:51820/udp \
+                                    -v my-wireguard-config:/config \
+                                    --sysctl="net.ipv4.conf.all.src_valid_mark=1" \
+                                    --restart unless-stopped \
+                                    lscr.io/linuxserver/wireguard:alpine
+
+      ExecStop=/usr/bin/docker stop my-wireguard
+      ExecStopPost=/usr/bin/docker rm my-wireguard
+
+runcmd:
+  - systemctl daemon-reload
+  - systemctl start wireguard.service
