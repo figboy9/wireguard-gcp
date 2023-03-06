@@ -1,19 +1,23 @@
 ## wireguard-gcp
 
-### 1. Create .env file
+### 1. Create Service Account on GCP
+
+Download service account json key file.
+
+### 2. Create .env file
 
 ```
 PROJECT_ID=<Project ID for GCP>
 GCP_KEY_PATH=<GCP Service Account Key Path>
 ```
 
-### 2. Create GCP resources
+### 3. Create GCP resources
 
 ```bash
 make apply
 ```
 
-### 3. Show wireguard QR
+### 4. Show wireguard QR
 
 ```bash
 make qr
