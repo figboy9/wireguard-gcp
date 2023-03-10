@@ -5,7 +5,7 @@ ifndef PROJECT_ID
 $(error PROJECT_ID must be set in .env)
 endif
 
-.PHONY: init apply destroy qr
+.PHONY: init apply destroy qr get-conf
 
 $(TF_DIR):
 	$(MAKE) init
@@ -27,3 +27,6 @@ destroy: $(GCP_KEY_PATH)
 
 qr: $(GCP_KEY_PATH)
 	./script/show-qr.sh $(GCP_KEY_PATH)
+
+get-conf: $(GCP_KEY_PATH)
+	./script/get-vpn-conf.sh $(GCP_KEY_PATH)

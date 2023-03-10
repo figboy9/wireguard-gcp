@@ -1,6 +1,7 @@
 .ssh
 .json
 .env
+*.conf
 
 #Terraform
 **/.terraform/*
