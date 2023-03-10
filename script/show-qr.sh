@@ -5,7 +5,7 @@ ADDRESS=$(
         --name terraform \
         -w /work \
         -v $PWD/terraform:/work \
-        -v $1:/key.json \
+        -v $GCP_KEY_PATH:/key.json \
         -v $PWD/.ssh:/.ssh \
         hashicorp/terraform \
         output -raw instance_ip_addr

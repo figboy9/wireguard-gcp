@@ -5,6 +5,6 @@ docker run --rm \
     -it \
     -w /work \
     -v $PWD/terraform:/work \
-    -v $1:/key.json \
+    -v $GCP_KEY_PATH:/key.json \
     -v $PWD/.ssh:/.ssh \
-    hashicorp/terraform ${@:2}
+    hashicorp/terraform $@
